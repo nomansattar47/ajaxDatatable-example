@@ -1,0 +1,28 @@
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+|
+| Here is where you can register web routes for your application. These
+| routes are loaded by the RouteServiceProvider within a group which
+| contains the "web" middleware group. Now create something great!
+|
+*/
+
+Route::get('/', function () {
+    return view('welcome');
+});
+Route::resource('users', UserController::class);
+Route::get('/getUsers', [UserController::class, 'getUsers'])->name('getUsers');
+Route::get('/admin/ajax_get_user_records', [UserController::class, 'ajax_get_user_records'])->name('ajax_get_user_records');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__.'/auth.php';
